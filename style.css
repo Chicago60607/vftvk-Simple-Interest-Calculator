@@ -1,4 +1,24 @@
-body {background-color:tan;}
-h1{color:green;}
+html {
+    font-family: Georgia, serif
+}
 
+body {background-color:black;
+      background-image: url('BackgroundBody.svg');
+      background-repeat: no-repeat;}
+h1 {color:darkgrey;
+    margin-left: 80px;}
 
+p {margin-left: 100px;
+   font-family: Arial, sans-serif}
+
+label {
+    padding-right:20px;
+}
+
+p1 {
+     padding-right:38px;
+}
+
+p2 {
+    padding-right:4px;
+}
