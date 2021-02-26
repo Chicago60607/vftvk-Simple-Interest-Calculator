@@ -1,9 +1,9 @@
-var fGblPrincipal;
-var fGblRate;
-var iGblYears;
-var sGblPrincipal;
-var sGblRate;
-var sGblYears;
+var fGblPrincipal = 0;
+var fGblRate = 10.25;
+var iGblYears = 1;
+var sGblPrincipal ="0";
+var sGblRate = "10.25";
+var sGblYears = "1";
 
 //This variables will be used later in the event listeners
 var rateRange = document.getElementById("rate");
@@ -55,6 +55,12 @@ principalInput.addEventListener("change", function() {
   }
   //clear the calculated result message
   document.getElementById("resultLine").innerHTML = "";
+  if ( fGblPrincipal <= 0) {
+    alert("Enter a positive number");
+    document.getElementById("resultLine").innerHTML = "";	
+    principalInput.value = "0";
+		principalInput.focus();
+	}
 });
 
 function compute() {
@@ -70,13 +76,15 @@ function compute() {
     currency: 'USD',
     minimumFractionDigits: 2 });
 
-  if ( fGblPrincipal == 0) {
+  if ( fGblPrincipal <= 0) {
     fReturn = 0;
     sReturn = "0";
+    alert("Enter a positive number");
+    document.getElementById("resultLine").innerHTML = "";
+    principalInput.focus();
   } else {
 //main calculation	
     fReturn = fGblPrincipal * fGblRate * iGblYears / 100;
-  }
 //formatting the return as a currency output field
   sReturn = cReturn.format(fReturn);
 //formatting the principal as a currency output field
@@ -89,9 +97,10 @@ function compute() {
   currentYear = currentYear + iGblYears;
 //converting to string
   sCalcYear = currentYear.toString();
-  sMessage = "If you deposit " + sPrincipal + "<br>" +
-             "at an interest rate of " + sGblRate + "<br>" +
-             "you will receive an amount of " + sReturn + "<br>" +
-             "in the year " + sCalcYear;
+  sMessage = "If you deposit <b>" + sPrincipal + "</b><br>" +
+             "at an interest rate of <b>" + sGblRate + "</b><br>" +
+             "you will receive an amount of <b>" + sReturn + "</b><br>" +
+             "in the year <b>" + sCalcYear + "</b>";
   document.getElementById("resultLine").innerHTML = sMessage;
+  }
 }

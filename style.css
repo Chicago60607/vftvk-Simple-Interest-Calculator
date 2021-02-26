@@ -1,15 +1,27 @@
 html {
     font-family: Georgia, serif
 }
-
-body {background-color:black;
-      background-image: url('BackgroundBody.svg');
-      background-repeat: no-repeat;}
-h1 {color:darkgrey;
+title {color:darkgrey;
     margin-left: 80px;}
 
+body {background-color:black;
+			font-family: Arial, sans-serif;
+			color: white;
+}
+h1 {color:grey;
+    font-family: Verdana, sans-serif;
+    margin-left: 80px;}
+
+div.maindiv {background-color:white;
+					   color: black;
+					   width: 600px;
+					   padding: 20px;
+					   border-radius: 25px;
+						 margin: auto;	
+}
+
 p {margin-left: 100px;
-   font-family: Arial, sans-serif}
+   font-family: Arial, sans-serif;}
 
 label {
     padding-right:20px;
