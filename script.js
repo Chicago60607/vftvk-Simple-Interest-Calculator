@@ -97,10 +97,10 @@ function compute() {
   currentYear = currentYear + iGblYears;
 //converting to string
   sCalcYear = currentYear.toString();
-  sMessage = "If you deposit <b>" + sPrincipal + "</b><br>" +
-             "at an interest rate of <b>" + sGblRate + "</b><br>" +
-             "you will receive an amount of <b>" + sReturn + "</b><br>" +
-             "in the year <b>" + sCalcYear + "</b>";
+  sMessage = "If you deposit <p3><b>" + sPrincipal + "</b></p3><br>" +
+             "at an interest rate of <p3><b>" + sGblRate + "</b></p3><br>" +
+             "you will receive an amount of <p3><b>" + sReturn + "</b></p3><br>" +
+             "in the year <p3><b>" + sCalcYear + "</b></p3>";
   document.getElementById("resultLine").innerHTML = sMessage;
   }
 }
