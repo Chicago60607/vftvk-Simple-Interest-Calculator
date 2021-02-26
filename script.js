@@ -1,67 +1,97 @@
-var fRate;
-var sRate;
+var fGblPrincipal;
+var fGblRate;
+var iGblYears;
+var sGblPrincipal;
+var sGblRate;
+var sGblYears;
 
-function updateRangeEntered(val) {
-  if ( typeof(val) != 'undefined' && val != null ) {
-    fRate = parseFloat(val);
-    sRate = val + "%";
+//This variables will be used later in the event listeners
+var rateRange = document.getElementById("rate");
+var yearsDropDown = document.getElementById("years");
+var principalInput = document.getElementById("principal")
+
+//Event listener for the interest rate range slider
+rateRange.addEventListener("change", function() {
+	var rateEntered = rateRange.value;
+	//the standard validation
+  if ( typeof(rateEntered) != 'undefined' && rateEntered != null ) {
+    fGblRate = parseFloat(rateEntered);
+    sGblRate = rateEntered + "%";
   } else {
-    fRate = 0;
-    sRate = "0%";
+    fGblRate = 0;
+    sGblRate = "0%";
   }
-  document.getElementById("rangeEntered").innerHTML = sRate;
-}
+	//update the label with the rate on the right side of the slider
+  document.getElementById("rangeEntered").innerHTML = sGblRate;
+  //clear the calculated result message
+  document.getElementById("resultLine").innerHTML = "";
+});
+
+//Event listener for the years drop down
+yearsDropDown.addEventListener("change", function() {
+	var yearSelected = yearsDropDown.value;
+	//the standard validation
+  if ( typeof(yearSelected) != 'undefined' && yearSelected != null ) {
+    iGblYears = parseInt(yearSelected);
+		sGblYears = yearSelected;
+  } else {
+    iGblYears = 0;
+    sGblYears = "0";
+  }
+  //clear the calculated result message
+  document.getElementById("resultLine").innerHTML = "";
+});
+
+//Event listener for the principal input element
+principalInput.addEventListener("change", function() {
+	var principalEntered = principalInput.value;
+  //the standard validation
+  if ( typeof(principalEntered) != 'undefined' && principalEntered != null ) {
+    fGblPrincipal = parseFloat(principalEntered);
+    sGblPrincipal = principalEntered;
+  } else {
+    fGblPrincipal = 0;
+    sGblPrincipal = "0";
+  }
+  //clear the calculated result message
+  document.getElementById("resultLine").innerHTML = "";
+});
 
 function compute() {
-  var fPrincipal;
   var fReturn;
-  var iYears;
   var sCalcYear;
   var sMessage;
   var sPrincipal;
   var sReturn;
-  var sYears;
+
+//Pre-format for currency values: the principal and the return
   var cReturn = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2 });
 
-  sPrincipal = document.getElementById("principal").value;
-  if ( typeof(sPrincipal) != 'undefined' &&
-       sPrincipal != null &&
-       sPrincipal != "" ) {
-    fPrincipal = parseFloat(sPrincipal);
-  } else {
-    fPrincipal = 0;
-    sPrincipal = "0";
-  }
-
-  sYears = document.getElementById("years").value;
-  if ( typeof(sYears) != 'undefined' &&
-       sYears != null &&
-       sYears != "" ) {
-    iYears = parseInt(sYears);
-  } else {
-    iYears = 0;
-    sYears = "0";
-  }
-
-  if ( fPrincipal == 0) {
+  if ( fGblPrincipal == 0) {
     fReturn = 0;
     sReturn = "0";
   } else {
-    fReturn = fPrincipal * fRate * iYears / 100;
+//main calculation	
+    fReturn = fGblPrincipal * fGblRate * iGblYears / 100;
   }
-//    sReturn = fReturn.toString();
-    sReturn = cReturn.format(fReturn);
-    sPrincipal = cReturn.format(fPrincipal);
+//formatting the return as a currency output field
+  sReturn = cReturn.format(fReturn);
+//formatting the principal as a currency output field
+  sPrincipal = cReturn.format(fGblPrincipal);
+//today's date  
   var now = new Date();
+//today's year
   var currentYear = now.getFullYear();
-  currentYear = currentYear + iYears;
-  sCalcYear = currentYear.toString;
+//adding number of years to current year
+  currentYear = currentYear + iGblYears;
+//converting to string
+  sCalcYear = currentYear.toString();
   sMessage = "If you deposit " + sPrincipal + "<br>" +
-             "at an interest rate of " + sRate + "<br>" +
-             "you will receive an amount of " + sReturn + "<br>";
+             "at an interest rate of " + sGblRate + "<br>" +
+             "you will receive an amount of " + sReturn + "<br>" +
              "in the year " + sCalcYear;
   document.getElementById("resultLine").innerHTML = sMessage;
 }
