@@ -46,7 +46,9 @@ yearsDropDown.addEventListener("change", function() {
 principalInput.addEventListener("change", function() {
 	var principalEntered = principalInput.value;
   //the standard validation
-  if ( typeof(principalEntered) != 'undefined' && principalEntered != null ) {
+  if ( typeof(principalEntered) != 'undefined' && 
+       principalEntered != null &&
+       principalEntered != "" ) {
     fGblPrincipal = parseFloat(principalEntered);
     sGblPrincipal = principalEntered;
   } else {
